@@ -645,13 +645,13 @@ function OrionLib:MakeWindow(WindowConfig)
 	end)
 
 local TweenService = game:GetService("TweenService")
-
 local Minimized = false
 
 -- Função para minimizar ou restaurar o menu
 local function toggleMenu()
 	if Minimized then
 		-- Restaurar o menu
+		MainWindow.Visible = true  -- Faz o MainWindow aparecer novamente
 		TweenService:Create(MainWindow, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, 615, 0, 344)}):Play()
 		MinimizeBtn.Ico.Image = "rbxassetid://7072719338"
 		wait(.02)
@@ -666,7 +666,8 @@ local function toggleMenu()
 
 		TweenService:Create(MainWindow, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, WindowName.TextBounds.X + 140, 0, 50)}):Play()
 		wait(0.1)
-		WindowStuff.Visible = false	
+		WindowStuff.Visible = false
+		MainWindow.Visible = false  -- Esconde o MainWindow completamente
 	end
 	Minimized = not Minimized
 end
@@ -693,6 +694,9 @@ textButton.MouseButton1Up:Connect(function()
 		toggleMenu()  -- Restaura o menu se ele estiver minimizado
 	end
 end)
+
+
+
 AddConnection(CloseBtn.MouseButton1Up, function()
 	  OrionLib:MakeNotification({Name = "SyniX HUB",Content = "Script sendo apagado, dados não deletados." ,Image = "rbxassetid://",Time = 7})task.wait(1)
 	  Orion:Destroy()
