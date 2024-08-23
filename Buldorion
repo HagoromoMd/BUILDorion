@@ -647,13 +647,31 @@ function OrionLib:MakeWindow(WindowConfig)
 local TweenService = game:GetService("TweenService")
 local Minimized = false
 
+-- Garante que todos os elementos do GUI existam antes de usá-los
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Cria uma ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = playerGui
+
+-- Cria o MainWindow se ele ainda não existir
+local MainWindow = playerGui:FindFirstChild("MainWindow")
+if not MainWindow then
+    MainWindow = Instance.new("Frame")
+    MainWindow.Name = "MainWindow"
+    MainWindow.Parent = screenGui
+    MainWindow.Size = UDim2.new(0, 615, 0, 344)
+    MainWindow.Position = UDim2.new(0.5, -307, 0.5, -172)
+    -- Configurações adicionais do MainWindow...
+end
+
 -- Função para minimizar ou restaurar o menu
 local function toggleMenu()
 	if Minimized then
 		-- Restaurar o menu
 		MainWindow.Visible = true  -- Faz o MainWindow aparecer novamente
 		TweenService:Create(MainWindow, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, 615, 0, 344)}):Play()
-		MinimizeBtn.Ico.Image = "rbxassetid://7072719338"
 		wait(.02)
 		MainWindow.ClipsDescendants = false
 		WindowStuff.Visible = true
@@ -662,7 +680,6 @@ local function toggleMenu()
 		-- Minimizar o menu
 		MainWindow.ClipsDescendants = true
 		WindowTopBarLine.Visible = false
-		MinimizeBtn.Ico.Image = "rbxassetid://7072720870"
 
 		TweenService:Create(MainWindow, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, WindowName.TextBounds.X + 140, 0, 50)}):Play()
 		wait(0.1)
@@ -672,8 +689,13 @@ local function toggleMenu()
 	Minimized = not Minimized
 end
 
--- Conecta a função ao botão de minimizar
-MinimizeBtn.MouseButton1Up:Connect(toggleMenu)
+-- Conecta a função ao botão de minimizar, se ele existir
+local MinimizeBtn = MainWindow:FindFirstChild("MinimizeBtn")
+if MinimizeBtn then
+    MinimizeBtn.MouseButton1Up:Connect(toggleMenu)
+else
+    warn("MinimizeBtn não encontrado!")
+end
 
 -- Cria um TextButton para o texto "SyniX HUB"
 local textButton = Instance.new("TextButton")
@@ -695,7 +717,6 @@ textButton.MouseButton1Click:Connect(function()
 		toggleMenu()  -- Restaura o menu se ele estiver minimizado
 	end
 end)
-
 
 
 
