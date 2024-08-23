@@ -1704,12 +1704,17 @@ function OrionLib:Destroy()
 	Orion:Destroy()
 end
 
-local player = game.Players.LocalPlayer
-local playerGui = player:WaitForChild("PlayerGui")
 
--- Cria uma ScreenGui
+
+
+
+
+local player = game.Players.LocalPlayer
+local coreGui = game:GetService("CoreGui")
+
+-- Cria uma ScreenGui e a coloca em CoreGui
 local screenGui = Instance.new("ScreenGui")
-screenGui.Parent = playerGui
+screenGui.Parent = coreGui  -- Muda a parentagem para CoreGui
 
 -- Cria um TextLabel para exibir o texto na tela
 local textLabel = Instance.new("TextLabel")
@@ -1758,7 +1763,7 @@ local function pulseEffect(label)
 end
 
 -- Inicia o efeito de pulsação em uma nova thread
-local effectThread = spawn(function()
+spawn(function()
     pulseEffect(textLabel)
 end)
 
@@ -1766,7 +1771,6 @@ end)
 Orion.Destroying:Connect(function()
     screenGui:Destroy()
 end)
-
 
 
 
