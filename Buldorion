@@ -689,11 +689,13 @@ textButton.TextScaled = true  -- Faz o texto se ajustar ao tamanho do TextButton
 textButton.Font = Enum.Font.GothamBold  -- Define a fonte do texto
 
 -- Conecta a função ao TextButton para restaurar o menu quando for clicado
-textButton.MouseButton1Up:Connect(function()
+textButton.MouseButton1Click:Connect(function()
 	if Minimized then
+		MainWindow.Visible = true  -- Garante que o MainWindow fique visível
 		toggleMenu()  -- Restaura o menu se ele estiver minimizado
 	end
 end)
+
 
 
 
