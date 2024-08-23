@@ -644,12 +644,10 @@ function OrionLib:MakeWindow(WindowConfig)
 		end
 	end)
 
-local TweenService = game:GetService("TweenService")
 local Minimized = false
 
 -- Garante que todos os elementos do GUI existam antes de usá-los
-local player = game.Players.LocalPlayer
-local playerGui = player:WaitForChild("PlayerGui")
+local playerGui = LocalPlayer:WaitForChild("PlayerGui")
 
 -- Cria uma ScreenGui
 local screenGui = Instance.new("ScreenGui")
@@ -717,7 +715,6 @@ textButton.MouseButton1Click:Connect(function()
 		toggleMenu()  -- Restaura o menu se ele estiver minimizado
 	end
 end)
-
 
 
 AddConnection(CloseBtn.MouseButton1Up, function()
