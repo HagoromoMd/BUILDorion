@@ -646,82 +646,58 @@ function OrionLib:MakeWindow(WindowConfig)
 
 local Minimized = false
 
--- Garante que todos os elementos do GUI existam antes de usá-los
-local playerGui = LocalPlayer:WaitForChild("PlayerGui")
-
--- Cria uma ScreenGui
-local screenGui = Instance.new("ScreenGui")
-screenGui.Parent = playerGui
-
--- Cria o MainWindow se ele ainda não existir
-local MainWindow = playerGui:FindFirstChild("MainWindow")
-if not MainWindow then
-    MainWindow = Instance.new("Frame")
-    MainWindow.Name = "MainWindow"
-    MainWindow.Parent = screenGui
-    MainWindow.Size = UDim2.new(0, 615, 0, 344)
-    MainWindow.Position = UDim2.new(0.5, -307, 0.5, -172)
-    -- Configurações adicionais do MainWindow...
-end
-
 -- Função para minimizar ou restaurar o menu
 local function toggleMenu()
 	if Minimized then
-		-- Restaurar o menu
-		MainWindow.Visible = true  -- Faz o MainWindow aparecer novamente
 		TweenService:Create(MainWindow, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, 615, 0, 344)}):Play()
+		MinimizeBtn.Ico.Image = "rbxassetid://7072719338"
 		wait(.02)
 		MainWindow.ClipsDescendants = false
 		WindowStuff.Visible = true
 		WindowTopBarLine.Visible = true
 	else
-		-- Minimizar o menu
 		MainWindow.ClipsDescendants = true
 		WindowTopBarLine.Visible = false
+		MinimizeBtn.Ico.Image = "rbxassetid://7072720870"
 
 		TweenService:Create(MainWindow, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, WindowName.TextBounds.X + 140, 0, 50)}):Play()
 		wait(0.1)
 		WindowStuff.Visible = false
-		MainWindow.Visible = false  -- Esconde o MainWindow completamente
 	end
 	Minimized = not Minimized
 end
 
--- Conecta a função ao botão de minimizar, se ele existir
-local MinimizeBtn = MainWindow:FindFirstChild("MinimizeBtn")
-if MinimizeBtn then
-    MinimizeBtn.MouseButton1Up:Connect(toggleMenu)
-else
-    warn("MinimizeBtn não encontrado!")
-end
-
--- Cria um TextButton para o texto "SyniX HUB"
-local textButton = Instance.new("TextButton")
-textButton.Parent = screenGui
-textButton.Size = UDim2.new(0.3, 0, 0.1, 0)  -- Define o tamanho do TextButton
-textButton.Position = UDim2.new(0.36, 0, 0, -30)  -- Posiciona o TextButton
-textButton.BackgroundTransparency = 1  -- Torna o fundo do TextButton transparente
-textButton.Text = "SyniX HUB"  -- O texto que será exibido
-textButton.TextColor3 = Color3.fromRGB(0, 0, 0)  -- Define a cor do texto como preto
-textButton.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)  -- Cor da borda (Branco)
-textButton.TextStrokeTransparency = 0  -- Torna a borda visível
-textButton.TextScaled = true  -- Faz o texto se ajustar ao tamanho do TextButton
-textButton.Font = Enum.Font.GothamBold  -- Define a fonte do texto
-
--- Conecta a função ao TextButton para restaurar o menu quando for clicado
-textButton.MouseButton1Click:Connect(function()
-	if Minimized then
-		MainWindow.Visible = true  -- Garante que o MainWindow fique visível
-		toggleMenu()  -- Restaura o menu se ele estiver minimizado
-	end
+-- Conectando ao botão de minimizar
+AddConnection(MinimizeBtn.MouseButton1Up, function()
+	toggleMenu()
 end)
 
-
+-- Conectando ao botão de fechar
 AddConnection(CloseBtn.MouseButton1Up, function()
-	  OrionLib:MakeNotification({Name = "SyniX HUB",Content = "Script sendo apagado, dados não deletados." ,Image = "rbxassetid://",Time = 7})task.wait(1)
-	  Orion:Destroy()
-	end)
+	OrionLib:MakeNotification({
+		Name = "SyniX HUB",
+		Content = "Script sendo apagado, dados não deletados.",
+		Image = "rbxassetid://",
+		Time = 7
+	})
+	task.wait(1)
+	OrionLib:Destroy()  -- Destrói o OrionLib
+end)
 
+-- Criação do texto para restaurar o menu
+local textButton = Instance.new("TextButton")
+textButton.Parent = game:GetService("CoreGui")
+textButton.Size = UDim2.new(0, 200, 0, 50)  -- Tamanho do botão
+textButton.Position = UDim2.new(0, 20, 0, 20)  -- Posição do botão
+textButton.Text = "SyniX HUB"
+textButton.BackgroundTransparency = 1
+textButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+textButton.MouseButton1Click:Connect(function()
+	if Minimized then
+		toggleMenu()  -- Restaura o menu ao clicar no texto
+	end
+end)
 	OrionLib:MakeNotification({Name = "SyniX HUB",Content = "Script sendo Iniciado | Energy shock simulator" ,Image = "rbxassetid://14824506141",Time = 7})
 
 	local function LoadSequence()
