@@ -31,8 +31,8 @@ local OrionLib = {
 local function updateStrokeColor()
     local currentTheme = OrionLib.Themes[OrionLib.SelectedTheme]
     if currentTheme then
-        local textColor = currentTheme.Text
-        currentTheme.Stroke = textColor
+        -- Atualiza Stroke com a cor do texto atual
+        currentTheme.Stroke = currentTheme.Text
     end
 end
 
@@ -41,7 +41,7 @@ local function applyTheme(themeName)
     OrionLib.SelectedTheme = themeName
     updateStrokeColor()
     
-    -- Aqui você deve atualizar os elementos que utilizam as cores do tema
+    -- Atualiza os elementos que utilizam as cores do tema
     for _, element in pairs(OrionLib.Elements) do
         if element:IsA("TextLabel") or element:IsA("TextButton") then
             element.TextColor3 = OrionLib.Themes[themeName].Text
@@ -51,9 +51,17 @@ local function applyTheme(themeName)
     end
 end
 
+-- Exemplo de como adicionar elementos para teste
+local testLabel = Instance.new("TextLabel")
+testLabel.Text = "Test"
+testLabel.Parent = game.Players.LocalPlayer.PlayerGui.ScreenGui -- Adicione o Label à GUI do jogador
+
+-- Adicione o elemento à lista
+table.insert(OrionLib.Elements, testLabel)
+
 -- Exemplo de chamada para aplicar o tema e atualizar as cores
-applyTheme("Default")-- A partir daqui, use OrionLib para aplicar o tema atualizado onde necessário
--- A partir daqui, use OrionLib para aplicar o tema atualizado onde necessário
+applyTheme("Default")
+
 --Feather Icons https://github.com/evoincorp/lucideblox/tree/master/src/modules/util - Created by 7kayoh
 local Icons = {}
 
