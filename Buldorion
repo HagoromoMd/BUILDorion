@@ -14,7 +14,6 @@ local OrionLib = {
 	Flags = {},
 	Themes = {
 	
-local player = game.Players.LocalPlayer
 local coreGui = game:GetService("CoreGui")
 
 -- Definição de cores padrão
