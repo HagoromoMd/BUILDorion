@@ -1,4 +1,3 @@
-
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
@@ -15,7 +14,7 @@ local OrionLib = {
 		Default = {
 			Main = Color3.fromRGB(0, 0, 0),
 			Second = Color3.fromRGB(10, 10, 10),
-			Stroke = Color3.fromRGB(250,250,250),
+			Stroke = Color3.fromRGB(0, 0, 250),
 			Divider = Color3.fromRGB(60, 60, 60),
 			Text = Color3.fromRGB(240,240,240),
 			TextDark = Color3.fromRGB(150, 150, 150)
@@ -670,7 +669,7 @@ function OrionLib:MakeWindow(WindowConfig)
 	  Orion:Destroy()
 	end)
 
-	OrionLib:MakeNotification({Name = "SyniX HUB",Content = "Script sendo Iniciado | BUILD A BOAT FOR TREASURE" ,Image = "rbxassetid://14824506141",Time = 7})
+	OrionLib:MakeNotification({Name = "SyniX HUB",Content = "Script sendo Iniciado | Energy shock simulator" ,Image = "rbxassetid://14824506141",Time = 7})
 
 	local function LoadSequence()
 		MainWindow.Visible = false
@@ -989,7 +988,7 @@ function OrionLib:MakeWindow(WindowConfig)
 				SliderConfig.Default = SliderConfig.Default or 50
 				SliderConfig.Callback = SliderConfig.Callback or function() end
 				SliderConfig.ValueName = SliderConfig.ValueName or ""
-				SliderConfig.Color = SliderConfig.Color or Color3.fromRGB(0,255 0)
+				SliderConfig.Color = SliderConfig.Color or Color3.fromRGB(9, 149, 98)
 				SliderConfig.Flag = SliderConfig.Flag or nil
 				SliderConfig.Save = SliderConfig.Save or false
 
@@ -1056,7 +1055,7 @@ function OrionLib:MakeWindow(WindowConfig)
 				UserInputService.InputChanged:Connect(function(Input)
 					if Dragging and Input.UserInputType == Enum.UserInputType.MouseMovement then 
 						local SizeScale = math.clamp((Input.Position.X - SliderBar.AbsolutePosition.X) / SliderBar.AbsoluteSize.X, 0, 1)
-						Slider:Set(SliderConfig.Min + ((SliderConfig.Max - SliderConfig.Min) * SizeScale)) 
+						Slider:Set(SliderConfig.Min T ((SliderConfig.Max - SliderConfig.Min) * SizeScale)) 
 						SaveCfg(game.GameId)
 					end
 				end)
