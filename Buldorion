@@ -68,12 +68,10 @@ local function pulseEffect(label)
             wait(0.05)
         end
 
-        -- Efeito de Borda Colorida
-        for i = 0, 1, 0.01 do
-            -- Aqui você pode manter a cor da borda constante
-            label.TextStrokeColor3 = Default.Stroke  -- Usa a cor padrão da borda
-            wait(0.05)
-        end
+        -- Efeito de Borda Colorida (Sincroniza com a cor do texto)
+        local textColor = label.TextColor3
+        label.TextStrokeColor3 = textColor  -- Sincroniza a cor da borda com a cor do texto
+        wait(0.05)
     end
 end
 
@@ -86,6 +84,8 @@ end)
 Orion.Destroying:Connect(function()
     screenGui:Destroy()
 end)
+
+
 	},
 	SelectedTheme = "Default",
 	Folder = nil,
