@@ -14,9 +14,9 @@ local OrionLib = {
 		Default = {
 			Main = Color3.fromRGB(0, 0, 0),
 			Second = Color3.fromRGB(10, 10, 10),
-			Stroke = Color3.fromRGB(0, 0, 250),
+			Stroke = Color3.fromRGB(0, 0, 250),  -- Cor inicial
 			Divider = Color3.fromRGB(60, 60, 60),
-			Text = Color3.fromRGB(240, 240, 240),
+			Text = Color3.fromRGB(240, 240, 240),  -- Cor que vai determinar o Stroke
 			TextDark = Color3.fromRGB(150, 150, 150)
 		}
 	},
@@ -33,9 +33,10 @@ local function updateStrokeColor()
 	end
 end
 
--- Chama a função para atualizar a cor do Stroke
+-- Chama a função para garantir que a cor do Stroke seja atualizada
 updateStrokeColor()
 
+-- A partir daqui, use OrionLib para aplicar o tema atualizado onde necessário
 -- A partir daqui, use OrionLib para aplicar o tema atualizado onde necessário
 --Feather Icons https://github.com/evoincorp/lucideblox/tree/master/src/modules/util - Created by 7kayoh
 local Icons = {}
