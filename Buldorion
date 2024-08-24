@@ -14,9 +14,9 @@ local OrionLib = {
 		Default = {
 			Main = Color3.fromRGB(0, 0, 0),
 			Second = Color3.fromRGB(10, 10, 10),
-			
+			Stroke = Color3.fromRGB(0, 0, 250),
 			Divider = Color3.fromRGB(60, 60, 60),
-			Text = Color3.fromRGB(240,240,240),
+			Text = Color3.fromRGB(240, 240, 240),
 			TextDark = Color3.fromRGB(150, 150, 150)
 		}
 	},
@@ -25,6 +25,18 @@ local OrionLib = {
 	SaveCfg = false
 }
 
+-- Função para atualizar a cor do Stroke para corresponder à cor do Text
+local function updateStrokeColor()
+	local theme = OrionLib.Themes[OrionLib.SelectedTheme]
+	if theme then
+		theme.Stroke = theme.Text  -- Define a cor do Stroke para a mesma cor do Text
+	end
+end
+
+-- Chama a função para atualizar a cor do Stroke
+updateStrokeColor()
+
+-- A partir daqui, use OrionLib para aplicar o tema atualizado onde necessário
 --Feather Icons https://github.com/evoincorp/lucideblox/tree/master/src/modules/util - Created by 7kayoh
 local Icons = {}
 
@@ -1706,29 +1718,7 @@ end
 
 
 
--- Definir a cor inicial do texto e da borda
-local textColor = Color3.fromRGB(240, 240, 240)
-local strokeColor = Color3.fromRGB(255, 0, 50)
 
--- Cria uma ScreenGui e a coloca em CoreGui
-local screenGui = Instance.new("ScreenGui")
-screenGui.Parent = coreGui
-
--- Cria um TextLabel para exibir o texto na tela
-local textLabel = Instance.new("TextLabel")
-textLabel.Parent = screenGui
-textLabel.Size = UDim2.new(0.3, 0, 0.1, 0)
-textLabel.Position = UDim2.new(0.36, 0, 0, -30)
-textLabel.BackgroundTransparency = 1
-textLabel.Text = "SyniX HUB"
-textLabel.TextColor3 = textColor  -- Define a cor do texto
-textLabel.TextStrokeColor3 = strokeColor  -- Define a cor da borda
-textLabel.TextStrokeTransparency = 0
-textLabel.TextScaled = true
-textLabel.Font = Enum.Font.GothamBold
-
--- Atualiza a cor da borda para corresponder à cor do texto
-textLabel.TextStrokeColor3 = textLabel.TextColor3
 
 
 local player = game.Players.LocalPlayer
