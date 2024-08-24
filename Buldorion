@@ -51,8 +51,6 @@ local function applyTheme(themeName)
     end
 end
 
--- Adicione o elemento à lista
-table.insert(OrionLib.Elements, testLabel)
 
 -- Exemplo de chamada para aplicar o tema e atualizar as cores
 applyTheme("Default")
