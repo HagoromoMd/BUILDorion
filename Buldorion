@@ -51,11 +51,6 @@ local function applyTheme(themeName)
     end
 end
 
--- Exemplo de como adicionar elementos para teste
-local testLabel = Instance.new("TextLabel")
-testLabel.Text = "Test"
-testLabel.Parent = game.Players.LocalPlayer.PlayerGui.ScreenGui -- Adicione o Label à GUI do jogador
-
 -- Adicione o elemento à lista
 table.insert(OrionLib.Elements, testLabel)
 
