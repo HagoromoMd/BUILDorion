@@ -344,9 +344,9 @@ end)
 CreateElement("ScrollFrame", function(Color, Width)
 	local ScrollFrame = Create("ScrollingFrame", {
 		BackgroundTransparency = 1,
-		MidImage = "rbxassetid://744554367",
-		BottomImage = "rbxassetid://744554667",
-		TopImage = "rbxassetid://744554367",
+		MidImage = "rbxassetid://7445543667",
+		BottomImage = "rbxassetid://7445543667",
+		TopImage = "rbxassetid://7445543667",
 		ScrollBarImageColor3 = Color,
 		BorderSizePixel = 0,
 		ScrollBarThickness = Width,
@@ -644,60 +644,31 @@ function OrionLib:MakeWindow(WindowConfig)
 		end
 	end)
 
-local Minimized = false
+	AddConnection(MinimizeBtn.MouseButton1Up, function()
+		if Minimized then
+			TweenService:Create(MainWindow, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, 615, 0, 344)}):Play()
+			MinimizeBtn.Ico.Image = "rbxassetid://7072719338"
+			wait(.02)
+			MainWindow.ClipsDescendants = false
+			WindowStuff.Visible = true
+			WindowTopBarLine.Visible = true
+		else
+			MainWindow.ClipsDescendants = true
+			WindowTopBarLine.Visible = false
+			MinimizeBtn.Ico.Image = "rbxassetid://7072720870"
 
--- Função para minimizar ou restaurar o menu
-local function toggleMenu()
-	if Minimized then
-		TweenService:Create(MainWindow, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, 615, 0, 344)}):Play()
-		MinimizeBtn.Ico.Image = "rbxassetid://7072719338"
-		wait(.02)
-		MainWindow.ClipsDescendants = false
-		WindowStuff.Visible = true
-		WindowTopBarLine.Visible = true
-	else
-		MainWindow.ClipsDescendants = true
-		WindowTopBarLine.Visible = false
-		MinimizeBtn.Ico.Image = "rbxassetid://7072720870"
+			TweenService:Create(MainWindow, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, WindowName.TextBounds.X + 140, 0, 50)}):Play()
+			wait(0.1)
+			WindowStuff.Visible = false	
+		end
+		Minimized = not Minimized    
+	end)
+	
+	AddConnection(CloseBtn.MouseButton1Up, function()
+	  OrionLib:MakeNotification({Name = "SyniX HUB",Content = "Script sendo apagado, dados não deletados." ,Image = "rbxassetid://",Time = 7})task.wait(1)
+	  Orion:Destroy()
+	end)
 
-		TweenService:Create(MainWindow, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, WindowName.TextBounds.X + 140, 0, 50)}):Play()
-		wait(0.1)
-		WindowStuff.Visible = false
-	end
-	Minimized = not Minimized
-end
-
--- Conectando ao botão de minimizar
-AddConnection(MinimizeBtn.MouseButton1Up, function()
-	toggleMenu()
-end)
-
--- Conectando ao botão de fechar
-AddConnection(CloseBtn.MouseButton1Up, function()
-	OrionLib:MakeNotification({
-		Name = "SyniX HUB",
-		Content = "Script sendo apagado, dados não deletados.",
-		Image = "rbxassetid://",
-		Time = 7
-	})
-	task.wait(1)
-	OrionLib:Destroy()  -- Destrói o OrionLib
-end)
-
--- Criação do texto para restaurar o menu
-local textButton = Instance.new("TextButton")
-textButton.Parent = game:GetService("CoreGui")
-textButton.Size = UDim2.new(0, 200, 0, 50)  -- Tamanho do botão
-textButton.Position = UDim2.new(0, 20, 0, 20)  -- Posição do botão
-textButton.Text = "SyniX HUB"
-textButton.BackgroundTransparency = 1
-textButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-
-textButton.MouseButton1Click:Connect(function()
-	if Minimized then
-		toggleMenu()  -- Restaura o menu ao clicar no texto
-	end
-end)
 	OrionLib:MakeNotification({Name = "SyniX HUB",Content = "Script sendo Iniciado | Energy shock simulator" ,Image = "rbxassetid://14824506141",Time = 7})
 
 	local function LoadSequence()
