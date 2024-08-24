@@ -6,36 +6,34 @@ local Mouse = LocalPlayer:GetMouse()
 local HttpService = game:GetService("HttpService")
 
 local OrionLib = {
-	Elements = {},
-	ThemeObjects = {},
-	Connections = {},
-	Flags = {},
-	Themes = {
-		Default = {
-			Main = Color3.fromRGB(0, 0, 0),
-			Second = Color3.fromRGB(10, 10, 10),
-			Stroke = Color3.fromRGB(0, 0, 250),  -- Cor inicial
-			Divider = Color3.fromRGB(60, 60, 60),
-			Text = Color3.fromRGB(240, 240, 240),  -- Cor que vai determinar o Stroke
-			TextDark = Color3.fromRGB(150, 150, 150)
-		}
-	},
-	SelectedTheme = "Default",
-	Folder = nil,
-	SaveCfg = false
+    Elements = {},
+    ThemeObjects = {},
+    Connections = {},
+    Flags = {},
+    Themes = {
+        Default = {
+            Main = Color3.fromRGB(0, 0, 0),
+            Second = Color3.fromRGB(10, 10, 10),
+            Stroke = Color3.fromRGB(240, 240, 240),  -- Inicialmente igual à cor do texto
+            Divider = Color3.fromRGB(60, 60, 60),
+            Text = Color3.fromRGB(240, 240, 240),
+            TextDark = Color3.fromRGB(150, 150, 150)
+        }
+    },
+    SelectedTheme = "Default",
+    Folder = nil,
+    SaveCfg = false
 }
 
--- Função para atualizar a cor do Stroke para corresponder à cor do Text
+-- Função para atualizar a cor do Stroke com base na cor do Texto
 local function updateStrokeColor()
-	local theme = OrionLib.Themes[OrionLib.SelectedTheme]
-	if theme then
-		theme.Stroke = theme.Text  -- Define a cor do Stroke para a mesma cor do Text
-	end
+    local currentTheme = OrionLib.Themes[OrionLib.SelectedTheme]
+    local textColor = currentTheme.Text
+    currentTheme.Stroke = textColor
 end
 
--- Chama a função para garantir que a cor do Stroke seja atualizada
+-- Chame esta função sempre que precisar garantir que o Stroke esteja atualizado
 updateStrokeColor()
-
 -- A partir daqui, use OrionLib para aplicar o tema atualizado onde necessário
 -- A partir daqui, use OrionLib para aplicar o tema atualizado onde necessário
 --Feather Icons https://github.com/evoincorp/lucideblox/tree/master/src/modules/util - Created by 7kayoh
@@ -1737,7 +1735,7 @@ textLabel.Position = UDim2.new(0.36, 0, 0, -30)  -- Posiciona o TextLabel um pou
 textLabel.BackgroundTransparency = 1  -- Torna o fundo do TextLabel transparente
 textLabel.Text = "SyniX HUB"  -- O texto que será exibido
 textLabel.TextColor3 = Color3.fromRGB(0, 0, 0)  -- Define a cor do texto como preto
-textLabel.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)  -- Cor inicial da borda (Branco)
+textLabel.TextStrokeColor3 = textLabel.TextColor3  -- Define a cor da borda igual à cor do texto
 textLabel.TextStrokeTransparency = 0  -- Torna a borda visível
 textLabel.TextScaled = true  -- Faz o texto se ajustar ao tamanho do TextLabel
 textLabel.Font = Enum.Font.GothamBold  -- Define a fonte do texto
@@ -1745,6 +1743,7 @@ textLabel.Font = Enum.Font.GothamBold  -- Define a fonte do texto
 -- Função para criar o efeito de pulsação, brilho e borda colorida animada
 local function pulseEffect(label)
     local originalSize = label.TextSize
+    local originalStrokeColor = label.TextStrokeColor3 -- Armazena a cor original do Stroke
     
     while label.Parent do  -- Checa se o TextLabel ainda existe
         -- Efeito de Pulsação de Tamanho
@@ -1772,6 +1771,9 @@ local function pulseEffect(label)
             label.TextStrokeColor3 = Color3.fromHSV(i, 1, 1)  -- Animação da borda colorida
             wait(0.05)
         end
+        
+        -- Reverte a cor da borda ao valor original após a animação
+        label.TextStrokeColor3 = originalStrokeColor
     end
 end
 
@@ -1784,7 +1786,6 @@ end)
 Orion.Destroying:Connect(function()
     screenGui:Destroy()
 end)
-
 
 
 
