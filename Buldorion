@@ -14,8 +14,17 @@ local OrionLib = {
 		Default = {
 			Main = Color3.fromRGB(0, 0, 0),
 			Second = Color3.fromRGB(10, 10, 10),
-			Stroke = Color3.fromRGB(0, 0, 250),
-			Divider = Color3.fromRGB(60, 60, 60),
+-- Função para gerar uma cor aleatória
+local function getRandomColor()
+    return Color3.new(math.random(), math.random(), math.random())
+end
+
+-- Aplicar a cor aleatória ao Stroke
+local Stroke = Instance.new("UIStroke")  -- Supondo que você esteja usando um UIStroke
+Stroke.Color = getRandomColor()
+      
+      
+      Divider = Color3.fromRGB(60, 60, 60),
 			Text = Color3.fromRGB(240,240,240),
 			TextDark = Color3.fromRGB(150, 150, 150)
 		}
@@ -278,88 +287,14 @@ CreateElement("Corner", function(Scale, Offset)
 	return Corner
 end)
 
-local player = game.Players.LocalPlayer
-local coreGui = game:GetService("CoreGui")
-
--- Cria uma ScreenGui e a coloca em CoreGui
-local screenGui = Instance.new("ScreenGui")
-screenGui.Parent = coreGui  -- Muda a parentagem para CoreGui
-
--- Cria um TextLabel para exibir o texto na tela
-local textLabel = Instance.new("TextLabel")
-textLabel.Parent = screenGui
-textLabel.Size = UDim2.new(0.3, 0, 0.1, 0)  -- Define o tamanho do TextLabel
-textLabel.Position = UDim2.new(0.36, 0, 0, -30)  -- Posiciona o TextLabel um pouco mais para a direita e um pouco mais para baixo
-textLabel.BackgroundTransparency = 1  -- Torna o fundo do TextLabel transparente
-textLabel.Text = "SyniX HUB"  -- O texto que será exibido
-textLabel.TextColor3 = Color3.fromRGB(0, 0, 0)  -- Define a cor do texto como preto
-textLabel.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)  -- Cor inicial da borda (Branco)
-textLabel.TextStrokeTransparency = 0  -- Torna a borda visível
-textLabel.TextScaled = true  -- Faz o texto se ajustar ao tamanho do TextLabel
-textLabel.Font = Enum.Font.GothamBold  -- Define a fonte do texto
-
--- Função para criar o Stroke com a cor definida
-local function CreateElement(name, func)
-    -- Adiciona o elemento com a função fornecida
-    return func(Color3.fromRGB(255, 0, 50), 2)  -- Define uma cor e espessura padrão, modifique conforme necessário
-end
-
--- Função para criar o Stroke
-local function CreateStroke(Color, Thickness)
-    local Stroke = Instance.new("UIStroke")
-    Stroke.Color = Color or Color3.fromRGB(255, 255, 255)
-    Stroke.Thickness = Thickness or 1
-    return Stroke
-end
-
--- Adiciona o Stroke ao TextLabel com a cor do texto
-local stroke = CreateElement("Stroke", CreateStroke)
-stroke.Parent = textLabel
-
--- Função para criar o efeito de pulsação, brilho e borda colorida animada
-local function pulseEffect(label)
-    local originalSize = label.TextSize
-    
-    while label.Parent do  -- Checa se o TextLabel ainda existe
-        -- Efeito de Pulsação de Tamanho
-        for i = 0.8, 1, 0.01 do
-            label.TextSize = i * originalSize  -- Ajusta o tamanho do texto
-            wait(0.05)
-        end
-        for i = 1, 0.8, -0.01 do
-            label.TextSize = i * originalSize  -- Ajusta o tamanho do texto
-            wait(0.05)
-        end
-
-        -- Efeito de Brilho
-        for i = 0, 1, 0.1 do
-            label.TextTransparency = i * 0.5  -- Ajusta a transparência para criar brilho
-            wait(0.05)
-        end
-        for i = 1, 0, -0.1 do
-            label.TextTransparency = i * 0.5  -- Reverte o brilho
-            wait(0.05)
-        end
-
-        -- Efeito de Borda Colorida
-        for i = 0, 1, 0.01 do
-            label.TextStrokeColor3 = Color3.fromHSV(i, 1, 1)  -- Animação da borda colorida
-            -- Atualiza a cor do Stroke para refletir a cor do texto
-            stroke.Color = label.TextStrokeColor3
-            wait(0.05)
-        end
-    end
-end
-
--- Inicia o efeito de pulsação em uma nova thread
-spawn(function()
-    pulseEffect(textLabel)
+CreateElement("Stroke", function(Color, Thickness)
+	local Stroke = Create("UIStroke", {
+		Color = Color or Color3.fromRGB(255, 255, 255),
+		Thickness = Thickness or 1
+	})
+	return Stroke
 end)
 
--- Monitorar a destruição de Orion
-Orion.Destroying:Connect(function()
-    screenGui:Destroy()
-end)
 CreateElement("List", function(Scale, Offset)
 	local List = Create("UIListLayout", {
 		SortOrder = Enum.SortOrder.LayoutOrder,
@@ -1783,6 +1718,68 @@ end
 
 
 
+local player = game.Players.LocalPlayer
+local coreGui = game:GetService("CoreGui")
+
+-- Cria uma ScreenGui e a coloca em CoreGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = coreGui  -- Muda a parentagem para CoreGui
+
+-- Cria um TextLabel para exibir o texto na tela
+local textLabel = Instance.new("TextLabel")
+textLabel.Parent = screenGui
+textLabel.Size = UDim2.new(0.3, 0, 0.1, 0)  -- Define o tamanho do TextLabel
+textLabel.Position = UDim2.new(0.36, 0, 0, -30)  -- Posiciona o TextLabel um pouco mais para a direita e um pouco mais para baixo
+textLabel.BackgroundTransparency = 1  -- Torna o fundo do TextLabel transparente
+textLabel.Text = "SyniX HUB"  -- O texto que será exibido
+textLabel.TextColor3 = Color3.fromRGB(0, 0, 0)  -- Define a cor do texto como preto
+textLabel.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)  -- Cor inicial da borda (Branco)
+textLabel.TextStrokeTransparency = 0  -- Torna a borda visível
+textLabel.TextScaled = true  -- Faz o texto se ajustar ao tamanho do TextLabel
+textLabel.Font = Enum.Font.GothamBold  -- Define a fonte do texto
+
+-- Função para criar o efeito de pulsação, brilho e borda colorida animada
+local function pulseEffect(label)
+    local originalSize = label.TextSize
+    
+    while label.Parent do  -- Checa se o TextLabel ainda existe
+        -- Efeito de Pulsação de Tamanho
+        for i = 0.8, 1, 0.01 do
+            label.TextSize = i * originalSize  -- Ajusta o tamanho do texto
+            wait(0.05)
+        end
+        for i = 1, 0.8, -0.01 do
+            label.TextSize = i * originalSize  -- Ajusta o tamanho do texto
+            wait(0.05)
+        end
+
+        -- Efeito de Brilho
+        for i = 0, 1, 0.1 do
+            label.TextTransparency = i * 0.5  -- Ajusta a transparência para criar brilho
+            wait(0.05)
+        end
+        for i = 1, 0, -0.1 do
+            label.TextTransparency = i * 0.5  -- Reverte o brilho
+            wait(0.05)
+        end
+
+        -- Efeito de Borda Colorida
+        for i = 0, 1, 0.01 do
+            label.TextStrokeColor3 = Color3.fromHSV(i, 1, 1)  -- Animação da borda colorida
+            wait(0.05)
+        end
+    end
+end
+
+-- Inicia o efeito de pulsação em uma nova thread
+spawn(function()
+    pulseEffect(textLabel)
+end)
+
+-- Monitorar a destruição de Orion
+Orion.Destroying:Connect(function()
+    screenGui:Destroy()
+end)
 
 
 
