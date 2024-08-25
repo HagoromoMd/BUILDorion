@@ -1,5 +1,3 @@
--
-
 
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
@@ -1725,7 +1723,7 @@ textLabel.Parent = screenGui
 textLabel.Size = UDim2.new(0.3, 0, 0.1, 0)  -- Define o tamanho do TextLabel
 textLabel.Position = UDim2.new(0.36, 0, 0, -30)  -- Posiciona o TextLabel um pouco mais para a direita e um pouco mais para baixo
 textLabel.BackgroundTransparency = 1  -- Torna o fundo do TextLabel transparente
-textLabel.Text = "𝗦𝗬𝗡𝗜𝗫 𝗛𝗨𝗕"  -- O texto que será exibido
+textLabel.Text = "SyniX HUB"  -- O texto que será exibido
 textLabel.TextColor3 = Color3.fromRGB(0, 0, 0)  -- Define a cor do texto como preto
 textLabel.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)  -- Cor inicial da borda (Branco)
 textLabel.TextStrokeTransparency = 0  -- Torna a borda visível
