@@ -14,17 +14,15 @@ local OrionLib = {
 		Default = {
 			Main = Color3.fromRGB(0, 0, 0),
 			Second = Color3.fromRGB(10, 10, 10),
--- Função para gerar uma cor aleatória
+			-- Função para gerar uma cor aleatória
 local function getRandomColor()
-    return Color3.new(math.random(), math.random(), math.random())
+    return Color3.fromRGB(math.random(0, 255), math.random(0, 255), math.random(0, 255))
 end
 
 -- Aplicar a cor aleatória ao Stroke
-local Stroke = Instance.new("UIStroke")  -- Supondo que você esteja usando um UIStroke
-Stroke.Color = getRandomColor()
-      
-      
-      Divider = Color3.fromRGB(60, 60, 60),
+local stroke = script.Parent.Stroke -- Supondo que você esteja aplicando isso a um Stroke em um objeto
+stroke.Color = getRandomColor()
+			Divider = Color3.fromRGB(60, 60, 60),
 			Text = Color3.fromRGB(240,240,240),
 			TextDark = Color3.fromRGB(150, 150, 150)
 		}
