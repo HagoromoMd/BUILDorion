@@ -29,20 +29,23 @@ local OrionLib = {
 	SaveCfg = false
 }
 
--- Exemplo de como aplicar a cor aleatória ao Stroke
--- Você precisa garantir que o Stroke seja um objeto válido e acessível
+-- Função para aplicar a cor aleatória ao Stroke
 local function applyRandomColorToStroke()
-    local stroke = script.Parent:FindFirstChild("Stroke")
-    if stroke then
-        stroke.Color = getRandomColor()
+    -- Verifica se o script.Parent é válido
+    if script.Parent then
+        local stroke = script.Parent:FindFirstChild("Stroke")
+        if stroke then
+            stroke.Color = getRandomColor()
+        else
+            warn("Stroke não encontrado em: " .. tostring(script.Parent))
+        end
     else
-        warn("Stroke não encontrado!")
+        warn("script.Parent é nil.")
     end
 end
 
--- Chame a função quando necessário, por exemplo:
+-- Chame a função quando necessário
 applyRandomColorToStroke()
-
 
 
 
