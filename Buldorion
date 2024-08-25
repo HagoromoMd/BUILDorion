@@ -5,11 +5,6 @@ local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 local HttpService = game:GetService("HttpService")
 
--- Função para gerar uma cor aleatória
-local function getRandomColor()
-    return Color3.fromRGB(math.random(0, 255), math.random(0, 255), math.random(0, 255))
-end
-
 local OrionLib = {
 	Elements = {},
 	ThemeObjects = {},
@@ -19,8 +14,9 @@ local OrionLib = {
 		Default = {
 			Main = Color3.fromRGB(0, 0, 0),
 			Second = Color3.fromRGB(10, 10, 10),
+			Stroke = Color3.fromRGB(0, 0, 250),
 			Divider = Color3.fromRGB(60, 60, 60),
-			Text = Color3.fromRGB(240, 240, 240),
+			Text = Color3.fromRGB(240,240,240),
 			TextDark = Color3.fromRGB(150, 150, 150)
 		}
 	},
@@ -28,26 +24,6 @@ local OrionLib = {
 	Folder = nil,
 	SaveCfg = false
 }
-
--- Função para aplicar a cor aleatória ao Stroke
-local function applyRandomColorToStroke()
-    -- Verifica se o script.Parent é válido
-    if script.Parent then
-        local stroke = script.Parent:FindFirstChild("Stroke")
-        if stroke then
-            stroke.Color = getRandomColor()
-        else
-            warn("Stroke não encontrado em: " .. tostring(script.Parent))
-        end
-    else
-        warn("script.Parent é nil.")
-    end
-end
-
--- Chame a função quando necessário
-applyRandomColorToStroke()
-
-
 
 --Feather Icons https://github.com/evoincorp/lucideblox/tree/master/src/modules/util - Created by 7kayoh
 local Icons = {}
